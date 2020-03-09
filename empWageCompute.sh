@@ -1,13 +1,16 @@
 #!/bin/bash -x
 
 echo "****** Welcom to Employee Wage ***"
-
+MAX_WORKING_DAYS=20
+Workingdays=0
+total_wage=0
 IS_PRESENT=1
 IS_FULLTIME=1
 IS_PARTTIME=2
 IS_ABSENT=0
 WAGE_PERHOUR=20
-WorkingDaysInMonth=20
+while ((Workingdays<=$MAX_WORKING_DAYS))
+do
 empCheck=$((RANDOM%2))
 if [ $empCheck -eq $IS_PRESENT ]
 then
@@ -24,8 +27,8 @@ $IS_ABSENT)
 ;;
 esac
 	total_wage_perday=$(($WAGE_PERHOUR*$workinghrsPerDay))
-	total_wage_PerMonth=$(($total_wage_perday*$WorkingDaysInMonth))
-	echo "total wage per day: $total_wage_PerMonth"
-else
-	echo "Employee Absent"
+	total_wage=$(($total_wage_perday+$total_wage))
+	((Workingdays++))
 fi
+done
+echo "total wage: $total_wage"
