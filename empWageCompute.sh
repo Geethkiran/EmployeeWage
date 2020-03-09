@@ -5,20 +5,25 @@ echo "****** Welcom to Employee Wage ***"
 IS_PRESENT=1
 IS_FULLTIME=1
 IS_PARTTIME=2
+IS_ABSENT=0
+WAGE_PERHOUR=20
 empCheck=$((RANDOM%2))
 if [ $empCheck -eq $IS_PRESENT ]
 then
-	hourCheck=$((RANDOM%3))
-if [ $hourCheck -eq $IS_FULLTIME ]
-then
+hourCheck=$((RANDOM%3))
+case $hourCheck in
+$IS_FULLTIME)
 	workinghrsPerDay=8
-elif [ $hourCheck -eq $IS_PARTTIME ]
-then
+;;
+$IS_PARTTIME)
 	workinghrsPerDay=4
-else
+;;
+$IS_ABSENT)
 	workinghrsPerDay=0
-fi
-	echo "working hours per day : $workinghrsPerDay"
+;;
+esac
+	total_wage_perday=$(($WAGE_PERHOUR*$workinghrsPerDay))
+	echo "total wage per day: $total_wage_perday"
 else
 	echo "Employee Absent"
 fi
