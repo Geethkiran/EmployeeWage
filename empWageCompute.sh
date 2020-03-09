@@ -7,6 +7,7 @@ IS_FULLTIME=1
 IS_PARTTIME=2
 IS_ABSENT=0
 WAGE_PERHOUR=20
+WorkingDaysInMonth=20
 empCheck=$((RANDOM%2))
 if [ $empCheck -eq $IS_PRESENT ]
 then
@@ -23,7 +24,8 @@ $IS_ABSENT)
 ;;
 esac
 	total_wage_perday=$(($WAGE_PERHOUR*$workinghrsPerDay))
-	echo "total wage per day: $total_wage_perday"
+	total_wage_PerMonth=$(($total_wage_perday*$WorkingDaysInMonth))
+	echo "total wage per day: $total_wage_PerMonth"
 else
 	echo "Employee Absent"
 fi
