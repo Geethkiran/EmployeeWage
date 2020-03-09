@@ -11,12 +11,8 @@ IS_FULLTIME=1
 IS_PARTTIME=2
 IS_ABSENT=0
 WAGE_PERHOUR=20
-while ((Workingdays<=$MAX_WORKING_DAYS&&$total_hours<=$MAX_WORKING_HOURS))
-do
-empCheck=$((RANDOM%2))
-if [ $empCheck -eq $IS_PRESENT ]
-then
-hourCheck=$((RANDOM%3))
+getemphr(){
+	hourCheck=$1
 case $hourCheck in
 $IS_FULLTIME)
 	workinghrsPerDay=8
@@ -28,10 +24,14 @@ $IS_ABSENT)
 	workinghrsPerDay=0
 ;;
 esac
-	total_hours=$(($workinghrsPerDay+$total_hours))
-	total_wage_perday=$(($WAGE_PERHOUR*$workinghrsPerDay))
+echo "$workinghrsPerDay"
+}
+while ((Workingdays<=$MAX_WORKING_DAYS&&$total_hours<=$MAX_WORKING_HOURS))
+do
+	workinghrs="$( getemphr $(($RANDOM%3)))"
+	total_hours=$(($workinghrs+$total_hours))
+	total_wage_perday=$(($WAGE_PERHOUR*$workinghrs))
 	total_wage=$(($total_wage_perday+$total_wage))
 	((Workingdays++))
-fi
 done
 echo "total wage: $total_wage"
